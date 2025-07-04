@@ -44,7 +44,7 @@ class TileGrid {
         const row = Math.floor(y / this.tileSize);
         return {row: row, col: col};
     }
-    moveGrid(x,y){
+    offsetGrid(x,y){
         //this function should offset grid by x and y
         for(let i=0;i<this.rows;i++){
             for(let j=0;j<this.cols;j++){
@@ -52,6 +52,12 @@ class TileGrid {
                 this.tiles[i][j].y += y;
             }
         }
+    }
+    moveGrid(x,y){
+        //first get origin(top left corner)
+        const origin = this.getTile[0][0];
+        //then offset grid by dx and dy
+        this.offsetGrid(x-origin.x,y-origin.y);
     }
 }
 
@@ -91,7 +97,7 @@ function changeTileColor(tile){
 //render of grid works
 const renderer=new Renderer(canvas);
 const grid = new TileGrid(10,10,50);
-//grid.moveGrid(100,100);
+//grid.offsetGrid(100,100);
 renderer.renderGrid(grid);
 canvas.addEventListener(
     'click',
@@ -102,4 +108,5 @@ canvas.addEventListener(
         renderer.renderGrid(grid);
     }
 );
+console.log(canvas.width,canvas.height);
 

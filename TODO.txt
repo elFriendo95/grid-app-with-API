@@ -2,7 +2,8 @@ GOAL: make app that sends and receives GETs and POSTs
 	1. create method for changing tile color(DONE)
 	2. make so that when you click on a tile it changes color(DONE)
 	3. make grid at centre of canvas
-	4. ...
-	5. Finish app
-	6. Create API
-	7. Test it
+	4. add config object with all properties like grid size,colors etc
+	5. 
+	6. Finish app
+	7. Create API
+	8. Test it
