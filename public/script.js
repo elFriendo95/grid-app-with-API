@@ -19,6 +19,8 @@ class TileGrid {
         this.rows = rows;
         this.cols = cols;
         this.tileSize = tileSize;
+        this.offsetX = 0;  // Track grid offset
+        this.offsetY = 0;
         this.tiles = [];
         this.generateGrid();
     }
@@ -40,11 +42,16 @@ class TileGrid {
         }
     }
     getTileFromXY(x,y){
-        const col = Math.floor(x / this.tileSize);
-        const row = Math.floor(y / this.tileSize);
-        return {row: row, col: col};
+         // Subtract the grid's offset before calculating row/col
+        const adjustedX = x - this.offsetX;
+        const adjustedY = y - this.offsetY;
+        const col = Math.floor(adjustedX / this.tileSize);
+        const row = Math.floor(adjustedY / this.tileSize);
+        return { row: row, col: col };
     }
     offsetGrid(x,y){
+        this.offsetX += x;//changes offset of the grid
+        this.offsetY += y;
         //this function should offset grid by x and y
         for(let i=0;i<this.rows;i++){
             for(let j=0;j<this.cols;j++){
@@ -55,9 +62,11 @@ class TileGrid {
     }
     moveGrid(x,y){
         //first get origin(top left corner)
-        const origin = this.getTile[0][0];
+        const origin = this.tiles[0][0];
         //then offset grid by dx and dy
+        console.log(this.tiles);
         this.offsetGrid(x-origin.x,y-origin.y);
+        console.log(this.tiles);
     }
     scaleGrid(newSize){
      this.tileSize = newSize;
@@ -126,5 +135,6 @@ canvas.addEventListener(
     }
 );
 grid.scaleGrid(25);
+grid.moveGrid(100,100);
 renderer.renderGrid(grid);
 
