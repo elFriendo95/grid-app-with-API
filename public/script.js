@@ -59,6 +59,11 @@ class TileGrid {
         //then offset grid by dx and dy
         this.offsetGrid(x-origin.x,y-origin.y);
     }
+    scaleGrid(newSize){
+     this.tileSize = newSize;
+     this.tiles = [];
+     this.generateGrid();
+    }
 }
 
 class Renderer{
@@ -84,8 +89,7 @@ class Renderer{
             }
         }
     }
-}
-function changeTileColor(tile){
+    changeTileColor(tile){
     if(tile.color==='red'){
         tile.color = 'white';
     }
@@ -93,20 +97,34 @@ function changeTileColor(tile){
         tile.color = 'red';
     }
 }
+}
+//need to change here
+/*function changeTileColor(tile){
+    if(tile.color==='red'){
+        tile.color = 'white';
+    }
+    else if(tile.color==='white'){
+        tile.color = 'red';
+    }
+}*/
+
+
+
 //render of tile works
 //render of grid works
 const renderer=new Renderer(canvas);
 const grid = new TileGrid(10,10,50);
 //grid.offsetGrid(100,100);
-renderer.renderGrid(grid);
+
 canvas.addEventListener(
     'click',
     (event)=>{
-        console.log(event.offsetX,event.offsetY);
         const tile = grid.getTileFromXY(event.offsetX,event.offsetY);
-        changeTileColor(grid.tiles[tile.row][tile.col]);
+        //changeTileColor(grid.tiles[tile.row][tile.col]);
+        renderer.changeTileColor(grid.tiles[tile.row][tile.col]);
         renderer.renderGrid(grid);
     }
 );
-console.log(canvas.width,canvas.height);
+grid.scaleGrid(25);
+renderer.renderGrid(grid);
 
