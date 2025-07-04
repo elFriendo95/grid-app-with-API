@@ -7,7 +7,6 @@ class Tile{
         this.size=size;
         this.color = color;
     }
-    //i am here
     setCoordinates(x, y) {
         this.x = x;
         this.y = y;
@@ -46,9 +45,13 @@ class TileGrid {
         return {row: row, col: col};
     }
     moveGrid(x,y){
-        //this function should oofset grid by x and y
-
-        
+        //this function should offset grid by x and y
+        for(let i=0;i<this.rows;i++){
+            for(let j=0;j<this.cols;j++){
+                this.tiles[i][j].x += x;
+                this.tiles[i][j].y += y;
+            }
+        }
     }
 }
 
@@ -88,6 +91,7 @@ function changeTileColor(tile){
 //render of grid works
 const renderer=new Renderer(canvas);
 const grid = new TileGrid(10,10,50);
+//grid.moveGrid(100,100);
 renderer.renderGrid(grid);
 canvas.addEventListener(
     'click',
@@ -98,3 +102,4 @@ canvas.addEventListener(
         renderer.renderGrid(grid);
     }
 );
+
