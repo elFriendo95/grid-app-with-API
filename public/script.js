@@ -1,4 +1,12 @@
 const canvas = document.getElementById('canvas');
+const CONFIG = {
+    CANVAS_WIDTH: 800,
+    CANVAS_HEIGHT: 800,
+    TILE_SIZE: 25,
+    ROWS: 10,
+    COLS: 10
+};
+
 
 class Tile{
     constructor(x,y,size,color){
@@ -122,7 +130,7 @@ class Renderer{
 //render of tile works
 //render of grid works
 const renderer=new Renderer(canvas);
-const grid = new TileGrid(10,10,50);
+const grid = new TileGrid(CONFIG.ROWS,CONFIG.COLS,CONFIG.TILE_SIZE);
 //grid.offsetGrid(100,100);
 
 canvas.addEventListener(
@@ -134,7 +142,7 @@ canvas.addEventListener(
         renderer.renderGrid(grid);
     }
 );
-grid.scaleGrid(25);
-grid.moveGrid(100,100);
+
+grid.moveGrid(150,150);
 renderer.renderGrid(grid);
 
